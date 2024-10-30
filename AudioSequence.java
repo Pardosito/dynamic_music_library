@@ -1,4 +1,4 @@
-package dynamicmusic;//package dynamicmusic;
+package dynamicmusic;
 
 import javax.sound.sampled.*;
 import java.io.File;
@@ -7,133 +7,65 @@ import java.io.IOException;
 public class AudioSequence {
     private final String path;
     private final File file;
-    private final long length;
-    private final double lengthInSeconds;
-    private final AudioFormat format;
-    private AudioInputStream audioInputStream;
-    private final int frameSize;
-    private final float frameRate;
-    private long currentFrame;
     private Clip clip;
     private String status;
+    private long currentFrame;
 
-    public AudioSequence(String path) throws UnsupportedAudioFileException, IOException {
+    public AudioSequence(String path) throws UnsupportedAudioFileException, IOException, LineUnavailableException {
         this.path = path;
-        this.file = new File(path);
+        this.file = new File(path).getAbsoluteFile();
+        this.status = "stop";
 
         if (!file.exists()) {
             throw new IOException("File not found: " + path);
         }
 
-        try (AudioInputStream audioInputStream = AudioSystem.getAudioInputStream(file)) {
-            this.format = audioInputStream.getFormat();
-            this.frameSize = format.getFrameSize();
-            this.length = audioInputStream.getFrameLength();
-            this.frameRate = format.getFrameRate();
-            this.lengthInSeconds = (this.length / (double)(frameSize * frameRate));
-        }
+        clip = AudioSystem.getClip();
+        AudioInputStream audioInputStream = AudioSystem.getAudioInputStream(file);
+        clip.open(audioInputStream);
     }
 
-    public void play() throws UnsupportedAudioFileException, IOException, LineUnavailableException, InterruptedException {
+    public void play() {
         try {
-            AudioInputStream audioInputStream = AudioSystem.getAudioInputStream(this.file);
-            clip = AudioSystem.getClip();
-            clip.open(audioInputStream);
-            clip.start();
+            if (status.equals("pause")) {
+                resumeAudio();
+                return;
+            }
 
-            new Thread(() -> {
-                while (clip.isRunning()) {
-                    try {
-                        Thread.sleep(100);
-                    } catch (InterruptedException e) {
-                        e.printStackTrace();
-                    }
-                }
-                try {
-                    restart();
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-            }).start();
+            clip.setFramePosition(0);
+            clip.loop(Clip.LOOP_CONTINUOUSLY);
+            status = "play";
 
-            this.status = "play";
         } catch (Exception e) {
             System.err.println("Error during playback: " + e.getMessage());
             e.printStackTrace();
         }
     }
 
-    public void close() {
-        if (clip != null) {
-            clip.close();
-        }
-    }
-
     public void pause() {
-        if(clip.isRunning() && clip != null && !this.status.equals("pause")) {
-            this.currentFrame = this.clip.getMicrosecondPosition();
+        if (status.equals("play")) {
+            currentFrame = clip.getFramePosition();
             clip.stop();
-            this.status = "pause";
-        }
-        else System.out.println("Audio already paused");
-    }
-
-    public void resumeAudio() throws UnsupportedAudioFileException,
-            IOException, LineUnavailableException, InterruptedException {
-        if (this.status.equals("play"))
-        {
-            System.out.println("Audio is already "+
-                    "being played");
-            return;
-        }
-        clip.close();
-        resetAudioStream();
-        clip.setMicrosecondPosition(currentFrame);
-        this.play();
-    }
-
-    public void restart() throws IOException, LineUnavailableException,
-            UnsupportedAudioFileException, InterruptedException {
-        clip.stop();
-        clip.close();
-        resetAudioStream();
-        currentFrame = 0L;
-        clip.setMicrosecondPosition(0);
-        this.play();
-    }
-
-    public void stop() throws UnsupportedAudioFileException,
-            IOException, LineUnavailableException
-    {
-        currentFrame = 0L;
-        clip.stop();
-        clip.close();
-    }
-
-    public void jump(long c) throws UnsupportedAudioFileException, IOException,
-            LineUnavailableException, InterruptedException {
-        if (c > 0 && c < clip.getMicrosecondLength())
-        {
-            clip.stop();
-            clip.close();
-            resetAudioStream();
-            currentFrame = c;
-            clip.setMicrosecondPosition(c);
-            this.play();
+            status = "pause";
         }
     }
 
-    public void resetAudioStream() throws UnsupportedAudioFileException, IOException,
-            LineUnavailableException
-    {
-        try {
-            audioInputStream = AudioSystem.getAudioInputStream(new File(path).getAbsoluteFile());
-            clip.open(audioInputStream);
+    public void resumeAudio() {
+        if (status.equals("pause")) {
+            clip.setFramePosition((int)currentFrame);
             clip.loop(Clip.LOOP_CONTINUOUSLY);
-        } catch (Exception e){
-            e.printStackTrace();
+            status = "play";
         }
+    }
+
+    public void stop() {
+        clip.stop();
+        clip.setFramePosition(0);
+        status = "stop";
+    }
+
+    public void close() {
+        stop();
+        clip.close();
     }
 }
-
-
