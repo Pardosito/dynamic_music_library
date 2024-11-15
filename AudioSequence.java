@@ -10,6 +10,7 @@ public class AudioSequence {
     private Clip clip;
     private String status;
     private long currentFrame;
+    private final long length;
 
     public AudioSequence(String path) throws UnsupportedAudioFileException, IOException, LineUnavailableException {
         this.path = path;
@@ -22,6 +23,7 @@ public class AudioSequence {
 
         clip = AudioSystem.getClip();
         AudioInputStream audioInputStream = AudioSystem.getAudioInputStream(file);
+        this.length = audioInputStream.getFrameLength();
         clip.open(audioInputStream);
     }
 
@@ -67,5 +69,13 @@ public class AudioSequence {
     public void close() {
         stop();
         clip.close();
+    }
+
+    public long getCurrentFrame() {
+        return this.currentFrame;
+    }
+
+    public long getLength() {
+        return this.length;
     }
 }
