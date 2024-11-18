@@ -1,11 +1,9 @@
 package dynamicmusic;
 
+import java.io.IOException;
+import java.util.concurrent.TimeUnit;
 import javax.sound.sampled.LineUnavailableException;
 import javax.sound.sampled.UnsupportedAudioFileException;
-import javax.swing.table.AbstractTableModel;
-import java.io.IOException;
-import java.util.Map;
-import java.util.concurrent.TimeUnit;
 
 public class TestClass {
     public static void main(String[] args) throws UnsupportedAudioFileException, LineUnavailableException, IOException, InterruptedException {
@@ -34,9 +32,8 @@ public class TestClass {
 
         ActionPlayback actions = new ActionPlayback();
         actions.hasAction("music");
-        actions.addAction("/Users/pardosito/Desktop/Kodiguito/POO/dynamicmusic/Cantina Band 60.wav", "music", false);
-        actions.hasAction("music");
-        actions.addAction("/Users/pardosito/Desktop/Kodiguito/POO/dynamicmusic/Cantina Band 60.wav", "music", false);
+        actions.addAction("Dynamic_Music_Library\\assets\\Cantina Band 60.wav", "music", false);
+
         actions.playAction("music");
 
         TimeUnit.SECONDS.sleep(5);

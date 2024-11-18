@@ -1,11 +1,11 @@
 package dynamicmusic;
 
 
-import javax.sound.sampled.LineUnavailableException;
-import javax.sound.sampled.UnsupportedAudioFileException;
 import java.io.IOException;
 import java.util.Map;
 import java.util.TreeMap;
+import javax.sound.sampled.LineUnavailableException;
+import javax.sound.sampled.UnsupportedAudioFileException;
 
 public class ActionPlayback {
     private static StateManager stateManager = new StateManager();

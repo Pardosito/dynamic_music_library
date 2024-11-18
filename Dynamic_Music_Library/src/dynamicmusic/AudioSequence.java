@@ -1,8 +1,8 @@
 package dynamicmusic;
 
-import javax.sound.sampled.*;
 import java.io.File;
 import java.io.IOException;
+import javax.sound.sampled.*;
 
 public class AudioSequence {
     private final String path;
@@ -40,7 +40,6 @@ public class AudioSequence {
 
         } catch (Exception e) {
             System.err.println("Error during playback: " + e.getMessage());
-            e.printStackTrace();
         }
     }
 
