@@ -9,7 +9,7 @@ public class StateManager {
     public List<StateChangeListener> listeners;
 
     public StateManager() {
-        states = new TreeMap<String, Boolean>();
+        states = new TreeMap<>();
     }
 
     public void addState(String name, Boolean value) {
