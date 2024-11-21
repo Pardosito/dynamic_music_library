@@ -1,4 +1,4 @@
-package dynamicmusic;
+package dynamicmusic.Reproductor;
 
 import java.util.List;
 import java.util.Map;

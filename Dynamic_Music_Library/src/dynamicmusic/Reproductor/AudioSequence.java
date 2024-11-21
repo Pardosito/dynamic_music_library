@@ -1,4 +1,4 @@
-package dynamicmusic;
+package dynamicmusic.Reproductor;
 
 import java.io.File;
 import java.io.IOException;
@@ -29,11 +29,9 @@ public class AudioSequence {
 
     public void play() {
         try {
-            if (status.equals("pause")) {
-                resumeAudio();
-                return;
+            if (status.equals("stop")) {
+                clip.start();
             }
-
             clip.setFramePosition(0);
             clip.loop(Clip.LOOP_CONTINUOUSLY);
             status = "play";

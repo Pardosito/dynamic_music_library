@@ -1,4 +1,4 @@
-package dynamicmusic;
+package dynamicmusic.Reproductor;
 
 
 import java.io.IOException;

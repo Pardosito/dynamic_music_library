@@ -1,9 +1,12 @@
-package dynamicmusic;
+package dynamicmusic.Reproductor;
 
 import java.io.IOException;
 import java.util.concurrent.TimeUnit;
+
 import javax.sound.sampled.LineUnavailableException;
 import javax.sound.sampled.UnsupportedAudioFileException;
+
+import dynamicmusic.UI.Pantalla;
 
 public class TestClass {
     public static void main(String[] args) throws UnsupportedAudioFileException, LineUnavailableException, IOException, InterruptedException {
@@ -30,24 +33,26 @@ public class TestClass {
 //            e.printStackTrace();
 //        }
 
-        ActionPlayback actions = new ActionPlayback();
-        actions.hasAction("music");
-        actions.addAction("Dynamic_Music_Library\\assets\\Cantina Band 60.wav", "music", false);
+        // ActionPlayback actions = new ActionPlayback();
+        // actions.hasAction("music");
+        // actions.addAction("Dynamic_Music_Library\\assets\\Cantina Band 60.wav", "music", false);
 
-        actions.playAction("music");
+        // actions.playAction("music");
 
-        TimeUnit.SECONDS.sleep(5);
-        System.out.println("Pausing...");
-        actions.pauseAction("music");
+        // TimeUnit.SECONDS.sleep(5);
+        // System.out.println("Pausing...");
+        // actions.pauseAction("music");
 
-        TimeUnit.SECONDS.sleep(5);
-        System.out.println("Resuming...");
-        actions.resumeAction("music");
+        // TimeUnit.SECONDS.sleep(5);
+        // System.out.println("Resuming...");
+        // actions.resumeAction("music");
 
-        TimeUnit.SECONDS.sleep(5);
-        System.out.println("Pausing...");
-        actions.pauseAction("music");
-
-
+        // TimeUnit.SECONDS.sleep(5);
+        // System.out.println("Pausing...");
+        // actions.pauseAction("music");
+        String file1 = "Dynamic_Music_Library\\assets\\Cantina Band 60.wav";
+        Reproductor r = new Reproductor(file1, null, null);
+        r.play();
+        TimeUnit.SECONDS.sleep(70);
     }
 }
