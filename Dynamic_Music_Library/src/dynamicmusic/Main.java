@@ -1,7 +1,5 @@
 package dynamicmusic;
 
-import dynamicmusic.UI.Idle;
-import dynamicmusic.UI.Pantalla;
 import dynamicmusic.UI.VerticalGUI;
 import java.io.IOException;
 import javax.sound.sampled.LineUnavailableException;
@@ -54,10 +52,10 @@ public class Main {
         // r.play();
         // TimeUnit.SECONDS.sleep(70);
 
-        Pantalla main = new Idle("Testing");
-        main.mostrar();
+        // Pantalla main = new Idle("Testing");
+        // main.mostrar();
 
-        Pantalla v = new VerticalGUI();
+        var v = new VerticalGUI();
         v.mostrar();
     }
 }

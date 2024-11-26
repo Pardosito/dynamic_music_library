@@ -6,18 +6,21 @@ import javax.swing.JButton;
 public class VerticalGUI extends Pantalla{
     
     public VerticalGUI(){
-        super("Vertical Layering");
+        super("Dynamic Library");
     }
     
     @Override
     protected void inicializarComponentes() {
         Object[][] buttons = new Object[][]{
-            { "Act1", 350, 75 }, 
-            { "Play", 350, 90 },
+            { "Play", 350, 75 },
+            { "Stop", 350, 75 },
+
+            { "Act1", 350, 75 },           
             { "Act2", 350, 75 },
             { "Act3", 350, 75 },
-            { "Stop", 350, 90 },
-            { "Act4", 350, 90 },
+            { "Act4", 350, 75 },
+            { "Horizontal", 350, 75},
+            { "Vertical", 350, 75}
         };
 
         for (Object[] buttonConf : buttons) {

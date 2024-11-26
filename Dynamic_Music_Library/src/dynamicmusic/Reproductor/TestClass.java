@@ -2,11 +2,8 @@ package dynamicmusic.Reproductor;
 
 import java.io.IOException;
 import java.util.concurrent.TimeUnit;
-
 import javax.sound.sampled.LineUnavailableException;
 import javax.sound.sampled.UnsupportedAudioFileException;
-
-import dynamicmusic.UI.Pantalla;
 
 public class TestClass {
     public static void main(String[] args) throws UnsupportedAudioFileException, LineUnavailableException, IOException, InterruptedException {

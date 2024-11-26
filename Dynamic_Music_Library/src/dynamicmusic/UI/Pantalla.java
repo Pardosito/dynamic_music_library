@@ -7,7 +7,7 @@ public abstract class Pantalla extends JFrame{
 
     /* Atributes */
     private final ImageIcon LOGO = new ImageIcon(Pantalla.class.getResource("/assets/Gotchards.jpg"));
-    private final Color BACKGROUND = Color.BLACK;
+    private final Color BACKGROUND = new Color(62, 180, 216); 
     protected final Font defaultFont = new Font("Comic Sans MS", Font.PLAIN, 30);
 
     /* Constructor */
