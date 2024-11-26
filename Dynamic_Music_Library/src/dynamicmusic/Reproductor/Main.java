@@ -8,7 +8,7 @@ public class Main {
 
             // Vertical Layering
             System.out.println("Activando capas...");
-            reproductor.verticalLayering(true, false, false); // Activa track1 y track3
+            reproductor.verticalLayering(true, true, true); // Activa track1 y track3
             Thread.sleep(5000);
 
             System.out.println("Deteniendo todas las pistas...");
